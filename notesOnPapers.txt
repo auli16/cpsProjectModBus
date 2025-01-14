@@ -1,0 +1,27 @@
+1)Attacks against process control systems: risk, assessment, detection, and response
+Objectives: Implement attacks (sec. 5.4, 5.5., 5.6) on Tennessee Eastman plant
+
+The focus is on attacks on sensors.
+There are p sensors which measures a vector y(k) = {y1(k), ..., yp(k)}, where each sensor i produces a measure yi(k) at time k
+
+The system receive a different measure during the attack (the attacking signals stay in a determined interval by assumption, out of it they are easily detectable)
+
+Integrity attacks: arbitarty values injected
+DoS attacks: the system notice that are missing new signals and can react by using the last signal received
+
+The example of control system used is the Tenneessee-eastman model. The original process
+model is implemented in FORTRAN and the PI control law is implemented in MATLAB.
+
+DETECTION: 
+- Sequential detection: based on a series of measurments, there is an intrusion if the value is higher than a certain threshold
+- Change detection: CUSUM 
+- Nonparametric CUSUM
+
+
+The attacker has the access of a single sensor, attacker goal: augment the pressure to 3000kPa
+
+5.4 Surge attack: goal maximize damage rapidly and mantain the system near the treshold. Manipulate yi(k) with the formula 
+
+5.5 Bias attack: modify the value of a sensor with a constant bias for a certain period
+
+5.6 Gemoetric attack: drift the value very slowly at the beginning and maximize the damage at the end 
