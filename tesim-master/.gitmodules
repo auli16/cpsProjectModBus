@@ -1,3 +1,0 @@
-[submodule "lib/tesim_ads_comms"]
-	path = lib/tesim_ads_comms
-	url = https://github.com/usnistgov/tesim_ads_comms.git
