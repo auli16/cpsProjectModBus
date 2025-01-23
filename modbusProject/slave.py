@@ -1,30 +1,45 @@
+import asyncio
 import random
 from pymodbus.datastore import ModbusSequentialDataBlock, ModbusSlaveContext, ModbusServerContext
-from pymodbus.server import StartTcpServer, ModbusTlsServer
+from pymodbus.server import ModbusTcpServer
 
-# Define the Modbus registers
-coils = ModbusSequentialDataBlock(1, [True] * 100) # digital outputs, 0 or 1
-discrete_inputs = ModbusSequentialDataBlock(1, [False] * 100) # read only, digital inputs, 0 or 1
-holding_registers = ModbusSequentialDataBlock(1, [0] * 100) # each register is 16 bits, 0 to 65535
-input_registers = ModbusSequentialDataBlock(1, [0] * 100) # read only, each register is 16 bits, 0 to 65535
+def create_slave_context(slave_id):
+    """
+    Funzione per creare un contesto per uno slave.
+    Ogni slave avrà un ID e i registri saranno inizializzati con valori random.
+    """
+    coils = ModbusSequentialDataBlock(1, [True] * 100)  # digital outputs, 0 or 1
+    discrete_inputs = ModbusSequentialDataBlock(1, [False] * 100)  # read only, digital inputs
+    holding_registers = ModbusSequentialDataBlock(1, [0] * 100)  # holding registers
+    input_registers = ModbusSequentialDataBlock(1, [0] * 100)  # input registers
 
-temperature_values = [random.randint(4, 15) for _ in range(7)]
-holding_registers.setValues(1, temperature_values)
-print("temperature_values:", temperature_values)
+    # Creazione di valori random per temperature per ogni slave
+    temperature_values = [random.randint(4, 15) for _ in range(7)]
+    holding_registers.setValues(1, temperature_values)
+    print(f"Slave {slave_id} - temperature_values:", temperature_values)
 
-# Define the Modbus slave context
-slave_context = ModbusSlaveContext(
-    di=discrete_inputs,
-    co=coils,
-    hr=holding_registers,
-    ir=input_registers
-)
+    # Creazione del contesto per lo slave con ID specificato
+    slave_context = ModbusSlaveContext(
+        di=discrete_inputs,
+        co=coils,
+        hr=holding_registers,
+        ir=input_registers
+    )
 
-# Define the Modbus server context
-server_context = ModbusServerContext(slaves=slave_context, single=True)
+    return slave_context
 
-# Start the Modbus TCP server
-# StartTcpServer(context=server_context, address=("localhost", 502))
+async def run():
+    # Creazione del contesto per entrambi gli slave
+    slave_context_1 = create_slave_context(1)
+    slave_context_2 = create_slave_context(2)
 
-server = ModbusTlsServer(context=server_context, address=("localhost", 502))
-server.serve_forever()
+    # Aggiungi entrambi gli slave al contesto del server
+    server_context = ModbusServerContext(slaves={1: slave_context_1, 2: slave_context_2}, single=False)
+
+    # Avvia il server
+    server = ModbusTcpServer(context=server_context, address=("localhost", 502))
+
+    await server.serve_forever()  # Start the Modbus TCP server and keep it running
+
+if __name__ == "__main__":
+    asyncio.run(run())  # Use asyncio to run the coroutine
