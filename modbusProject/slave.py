@@ -1,9 +1,9 @@
 import random
 from pymodbus.datastore import ModbusSequentialDataBlock, ModbusSlaveContext, ModbusServerContext
-from pymodbus.server import StartTcpServer
+from pymodbus.server import StartTcpServer, ModbusTlsServer
 
 # Define the Modbus registers
-coils = ModbusSequentialDataBlock(1, [False] * 100) # digital outputs, 0 or 1
+coils = ModbusSequentialDataBlock(1, [True] * 100) # digital outputs, 0 or 1
 discrete_inputs = ModbusSequentialDataBlock(1, [False] * 100) # read only, digital inputs, 0 or 1
 holding_registers = ModbusSequentialDataBlock(1, [0] * 100) # each register is 16 bits, 0 to 65535
 input_registers = ModbusSequentialDataBlock(1, [0] * 100) # read only, each register is 16 bits, 0 to 65535
@@ -24,4 +24,7 @@ slave_context = ModbusSlaveContext(
 server_context = ModbusServerContext(slaves=slave_context, single=True)
 
 # Start the Modbus TCP server
-StartTcpServer(context=server_context, address=("127.0.0.1", 502))
+# StartTcpServer(context=server_context, address=("localhost", 502))
+
+server = ModbusTlsServer(context=server_context, address=("localhost", 502))
+server.serve_forever()
