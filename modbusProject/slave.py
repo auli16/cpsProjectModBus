@@ -14,9 +14,9 @@ def create_slave_context(slave_id):
     input_registers = ModbusSequentialDataBlock(1, [0] * 100)  # input registers
 
     # Creazione di valori random per temperature per ogni slave
-    temperature_values = [random.randint(4, 15) for _ in range(7)]
-    holding_registers.setValues(1, temperature_values)
-    print(f"Slave {slave_id} - temperature_values:", temperature_values)
+    some_values = [random.randint(4, 15) for _ in range(7)]
+    holding_registers.setValues(1, some_values)
+    print(f"Slave {slave_id} - some_values:", some_values)
 
     # Creazione del contesto per lo slave con ID specificato
     slave_context = ModbusSlaveContext(
@@ -32,9 +32,10 @@ async def run():
     # Creazione del contesto per entrambi gli slave
     slave_context_1 = create_slave_context(1)
     slave_context_2 = create_slave_context(2)
+    slave_context_3 = create_slave_context(3)
 
     # Aggiungi entrambi gli slave al contesto del server
-    server_context = ModbusServerContext(slaves={1: slave_context_1, 2: slave_context_2}, single=False)
+    server_context = ModbusServerContext(slaves={1: slave_context_1, 2: slave_context_2, 3: slave_context_3}, single=False)
 
     # Avvia il server
     server = ModbusTcpServer(context=server_context, address=("localhost", 502))

@@ -28,10 +28,12 @@ async def read_slave_data(client, slave_id):
     except Exception as e:
         return {"error": str(e)}
 
-# Funzione principale
-async def main():
+async def master_read():
+    """
+    Crea il client Modbus e legge i dati da più slave.
+    """
     # Crea il client Modbus asincrono
-    client = AsyncModbusTcpClient("localhost", port=502)
+    client = AsyncModbusTcpClient("localhost", port=502, source_address=("192.168.1.10"))
 
     # Connetti il client
     await client.connect()
@@ -48,6 +50,59 @@ async def main():
 
     # Chiudi il client
     client.close()
+
+from pymodbus.client import AsyncModbusTcpClient
+import asyncio
+
+async def master_connected():
+    """
+    Crea il client Modbus e lo lascia connesso per un minuto.
+    Gestisce la disconnessione tramite pacchetto TCP FIN.
+    """
+    # Crea il client Modbus asincrono
+    client = AsyncModbusTcpClient("localhost", port=502)
+
+    try:
+        # Connetti il client
+        print("Attempting to connect...")
+        connection = await client.connect()
+
+        # Verifica se la connessione è avvenuta correttamente
+        if connection:
+            print("Client connected successfully.")
+        else:
+            print("Connection failed!")
+
+        # Lascia il client connesso per 60 secondi
+        print("Client connected for 60 seconds...")
+        await asyncio.sleep(60)
+
+        # Verifica se la connessione è ancora attiva
+        if not client.transport.is_open:
+            print("Client was disconnected before close.")
+        else:
+            print("Client will disconnect now...")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    
+    finally:
+        # Chiudi il client
+        client.close()
+        print("Client disconnected.")
+
+# Funzione principale
+async def main():
+    await master_connected()  # Chiamata della funzione asincrona
+
+# Esegui la funzione asincrona principale
+asyncio.run(main())
+
+
+
+# Funzione principale
+async def main():
+    await master_connected()  # Chiamata della funzione asincrona
 
 # Esegui la funzione asincrona principale
 asyncio.run(main())
