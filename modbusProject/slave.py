@@ -3,6 +3,13 @@ import random
 from pymodbus.datastore import ModbusSequentialDataBlock, ModbusSlaveContext, ModbusServerContext
 from pymodbus.server import ModbusTcpServer
 
+# Funzione di callback per tracciare le connessioni
+def trace_connection(is_connected, client_address):
+    if is_connected:
+        print(f"Dispositivo connesso: {client_address}")
+    else:
+        print(f"Dispositivo disconnesso: {client_address}")
+
 def create_slave_context(slave_id):
     """
     Funzione per creare un contesto per uno slave.
@@ -37,10 +44,10 @@ async def run():
     # Aggiungi entrambi gli slave al contesto del server
     server_context = ModbusServerContext(slaves={1: slave_context_1, 2: slave_context_2, 3: slave_context_3}, single=False)
 
-    # Avvia il server
-    server = ModbusTcpServer(context=server_context, address=("localhost", 502))
+    # Avvia il server con il callback trace_connection per le connessioni/disconnessioni
+    server = ModbusTcpServer(context=server_context, address=("localhost", 502), trace_connect=trace_connection)
 
-    await server.serve_forever()  # Start the Modbus TCP server and keep it running
+    await server.serve_forever()  # Avvia il server Modbus TCP e mantienilo in esecuzione
 
 if __name__ == "__main__":
-    asyncio.run(run())  # Use asyncio to run the coroutine
+    asyncio.run(run())  # Usa asyncio per eseguire la coroutine
