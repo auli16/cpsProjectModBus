@@ -33,7 +33,7 @@ async def master_read():
     Crea il client Modbus e legge i dati da più slave.
     """
     # Crea il client Modbus asincrono
-    client = AsyncModbusTcpClient("localhost", port=502, trace_packet=packet_logger)
+    client = AsyncModbusTcpClient("localhost", port=1502, trace_packet=packet_logger)
 
     # Connetti il client
     await client.connect()
@@ -78,7 +78,7 @@ async def master_connected():
     Gestisce la disconnessione tramite pacchetto TCP FIN.
     """
     # Crea il client Modbus asincrono con la funzione di tracing
-    client = AsyncModbusTcpClient("localhost", port=502, trace_packet=packet_logger)
+    client = AsyncModbusTcpClient("localhost", port=1502, trace_packet=packet_logger)
 
     try:
         # Connetti il client
