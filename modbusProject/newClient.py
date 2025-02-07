@@ -1,6 +1,6 @@
 from pymodbus.client.tcp import ModbusTcpClient
 
-client = ModbusTcpClient("127.0.0.1", port=1502)
+client = ModbusTcpClient("127.0.0.1", port=502)
 
 if not client.connect():
     print("Could not connect to Modbus server")

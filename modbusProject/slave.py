@@ -1,5 +1,6 @@
 import asyncio
 import random
+import logging
 from pymodbus.datastore import ModbusSequentialDataBlock, ModbusSlaveContext, ModbusServerContext
 from pymodbus.server import ModbusTcpServer
 
@@ -35,18 +36,21 @@ def create_slave_context(slave_id):
 
     return slave_context
 
-async def run():
-    # Creazione del contesto per entrambi gli slave
-    slave_context_1 = create_slave_context(1)
-    slave_context_2 = create_slave_context(2)
-    slave_context_3 = create_slave_context(3)
+# Configurazione del logging per tracciare tutte le richieste Modbus
+logging.basicConfig(level=logging.DEBUG)  # Imposta il livello di log a DEBUG
+log = logging.getLogger()
 
-    # Aggiungi entrambi gli slave al contesto del server
-    server_context = ModbusServerContext(slaves={1: slave_context_1, 2: slave_context_2, 3: slave_context_3}, single=False)
+async def run():
+    # Creazione del contesto per uno slave
+    slave_context_1 = create_slave_context(1)
+    server_context = ModbusServerContext(slaves={1: slave_context_1}, single=False)
 
     # Avvia il server con il callback trace_connection per le connessioni/disconnessioni
-    server = ModbusTcpServer(context=server_context, address=("localhost", 1502), trace_connect=trace_connection)
+    server = ModbusTcpServer(context=server_context, address=("localhost", 502), trace_connect=trace_connection)
 
+    print("Server Modbus avviato...")
+
+    # Esegui il server Modbus
     await server.serve_forever()  # Avvia il server Modbus TCP e mantienilo in esecuzione
 
 if __name__ == "__main__":

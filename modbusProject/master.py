@@ -78,7 +78,7 @@ async def master_connected():
     Gestisce la disconnessione tramite pacchetto TCP FIN.
     """
     # Crea il client Modbus asincrono con la funzione di tracing
-    client = AsyncModbusTcpClient("localhost", port=1502, trace_packet=packet_logger)
+    client = AsyncModbusTcpClient("localhost", port=502, trace_packet=packet_logger)
 
     try:
         # Connetti il client
@@ -149,7 +149,7 @@ async def send_packet_after_delay(client, slave_id):
         else:
             print(f"Error sending packet to Slave {slave_id}: {result}")
 
-        newValues = await client.read_holding_registers(address=1, count=10)
+        newValues = await client.read_holding_registers(1, count=15)
         print(newValues)
 
 
@@ -179,7 +179,7 @@ async def monitor_connection(client):
 # Funzione principale
 async def main():
     # Crea il client Modbus asincrono
-    client = AsyncModbusTcpClient("localhost", port=1502)
+    client = AsyncModbusTcpClient("localhost", port=502)
 
     # Invoca la funzione che invia un pacchetto dopo 30 secondi
     await send_packet_after_delay(client, slave_id=1)
