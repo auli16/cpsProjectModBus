@@ -24,7 +24,7 @@ def intercept_modify(packet):
                 # Calcola nuovi checksum
                 del packet[IP].chksum
                 del packet[TCP].chksum
-            
+    time.sleep(100)        
     send(packet, verbose=False)
 
 def sniff_and_process(interface):
@@ -32,5 +32,5 @@ def sniff_and_process(interface):
     sniff(iface=interface, filter=f"tcp port: {MODBUS_TCP_PORT}",prn=intercept_modify)
 
 if __name__ == "__main__":
-    interface = "127.0.0.1"
-    modificationAttack.py(interface)
+    interface = "localhost"
+    sniff_and_process(interface)
