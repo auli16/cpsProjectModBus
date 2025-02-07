@@ -110,11 +110,79 @@ async def master_connected():
         else:
             print("Client was already disconnected.")
 
+from pymodbus.client import AsyncModbusTcpClient
+import asyncio
+
+async def send_packet_after_delay(client, slave_id):
+    """
+    Collega il client allo slave, invia un pacchetto dopo 30 secondi e
+    disconnette dopo 60 secondi.
+    
+    Args:
+        client: Il client Modbus asincrono.
+        slave_id: L'ID dello slave da cui inviare il pacchetto.
+    """
+    try:
+        # Connetti il client
+        print("Connecting to Modbus server...")
+        connected = await client.connect()
+
+        if connected:
+            print("Connected successfully.")
+        else:
+            print("Failed to connect.")
+            return
+        
+        # Monitoraggio della connessione (facoltativo)
+        asyncio.create_task(monitor_connection(client))
+
+        # Attendi 30 secondi prima di inviare il pacchetto
+        print("Waiting for 15 seconds before sending a packet...")
+        # await asyncio.sleep(10)
+
+        # Esegui l'invio di un pacchetto (per esempio, una scrittura di coil)
+        print(f"Sending a packet to Slave {slave_id}...")
+        valuesToWrite = [1,1,1,1,1,1]
+        result = await client.write_registers(1, valuesToWrite)
+        if not result.isError():
+            print(f"Successfully sent packet to Slave {slave_id}.")
+        else:
+            print(f"Error sending packet to Slave {slave_id}: {result}")
+
+        newValues = await client.read_holding_registers(address=1, count=10)
+        print(newValues)
+
+
+        # Attendi un altro 15 secondi (totale 30 secondi di connessione)
+        # await asyncio.sleep(5)
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    
+    finally:
+        # Chiudi la connessione dopo 60 secondi
+        if client.connected:
+            print("Closing connection after 60 seconds...")
+            client.close()
+            print("Connection closed.")
+        else:
+            print("Client was already disconnected.")
+
+async def monitor_connection(client):
+    """
+    Monitora lo stato della connessione ogni 0.5 secondi.
+    """
+    while client.connected:
+        print(f"Connection Status: {client.connected}")
+        await asyncio.sleep(0.5)
 
 # Funzione principale
 async def main():
-    # await master_connected()  # Chiamata della funzione asincrona
-    await master_read()  # Chiamata della funzione asincrona
+    # Crea il client Modbus asincrono
+    client = AsyncModbusTcpClient("localhost", port=1502)
+
+    # Invoca la funzione che invia un pacchetto dopo 30 secondi
+    await send_packet_after_delay(client, slave_id=1)
 
 # Esegui la funzione asincrona principale
 asyncio.run(main())

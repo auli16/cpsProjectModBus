@@ -7,14 +7,15 @@ if not client.connect():
     exit(1)
 
 try:
+    '''
     print("Writing to coils")
     client.write_coils(1, [True, True, False, True, False])
 
     print("Writing to holding registers")
     client.write_registers(1, [123, 456, 789, 101, 102])
-
+    '''
     coils = client.read_coils(address=1, count=5)
-    holding_registers = client.read_holding_registers(address=1, count=5)
+    holding_registers = client.read_holding_registers(address=1, count=15)
 
     if not coils.isError() and not holding_registers.isError():
         print("Coils:", coils.bits)
@@ -24,3 +25,4 @@ try:
     
 finally:
     client.close()
+    print(holding_registers)
