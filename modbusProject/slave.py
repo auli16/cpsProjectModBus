@@ -21,7 +21,7 @@ def create_slave_context(slave_id):
     holding_registers = ModbusSequentialDataBlock(1, [0] * 100)  # holding registers
     input_registers = ModbusSequentialDataBlock(1, [0] * 100)  # input registers
 
-    # Creazione di valori random per temperature per ogni slave
+    # Creazione di valori random per ogni slave
     some_values = [random.randint(4, 15) for _ in range(7)]
     holding_registers.setValues(1, some_values)
     print(f"Slave {slave_id} - some_values:", holding_registers.getValues(1, 7), "coils", coils.getValues(1, 7))
