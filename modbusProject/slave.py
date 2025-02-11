@@ -46,7 +46,7 @@ async def run():
     server_context = ModbusServerContext(slaves={1: slave_context_1}, single=False)
 
     # Avvia il server con il callback trace_connection per le connessioni/disconnessioni
-    server = ModbusTcpServer(context=server_context, address=("localhost", 502), trace_connect=trace_connection)
+    server = ModbusTcpServer(context=server_context, address=("localhost", 503), trace_connect=trace_connection)
 
     print("Server Modbus avviato...")
 

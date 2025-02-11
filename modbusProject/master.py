@@ -78,7 +78,7 @@ async def master_connected():
     Gestisce la disconnessione tramite pacchetto TCP FIN.
     """
     # Crea il client Modbus asincrono con la funzione di tracing
-    client = AsyncModbusTcpClient("localhost", port=502, trace_packet=packet_logger)
+    client = AsyncModbusTcpClient("localhost", port=503, trace_packet=packet_logger)
 
     try:
         # Connetti il client
