@@ -33,7 +33,7 @@ async def master_read():
     Crea il client Modbus e legge i dati da più slave.
     """
     # Crea il client Modbus asincrono
-    client = AsyncModbusTcpClient("localhost", port=1502, trace_packet=packet_logger)
+    client = AsyncModbusTcpClient("localhost", port=503, trace_packet=packet_logger)
 
     # Connetti il client
     await client.connect()
@@ -47,10 +47,6 @@ async def master_read():
     print("Reading data from Slave 2...")
     slave_2_data = await read_slave_data(client, slave_id=2)
     print("Slave 2 Data:", slave_2_data)
-
-
-from pymodbus.client import AsyncModbusTcpClient
-import asyncio
 
 async def monitor_connection(client):
     """
@@ -78,7 +74,7 @@ async def master_connected():
     Gestisce la disconnessione tramite pacchetto TCP FIN.
     """
     # Crea il client Modbus asincrono con la funzione di tracing
-    client = AsyncModbusTcpClient("localhost", port=503, trace_packet=packet_logger)
+    client = AsyncModbusTcpClient("localhost", port=503) #, trace_packet=packet_logger)
 
     try:
         # Connetti il client
@@ -93,10 +89,16 @@ async def master_connected():
 
         # Esegui il monitoraggio della connessione
         asyncio.create_task(monitor_connection(client))
+        await asyncio.sleep(15)
+
+        # invio un messaggio di lettura coil al server 
+        values = await client.read_coils(address=0, count=10, slave=1)
+        print(f"Coils values: {values.bits}")
 
         # Lascia il client connesso per 60 secondi
         print("Client connected for 20 seconds...")
-        await asyncio.sleep(40)
+        await asyncio.sleep(20)
+
 
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -109,6 +111,7 @@ async def master_connected():
             print("Client disconnected.")
         else:
             print("Client was already disconnected.")
+
 
 # Funzione principale
 async def main():

