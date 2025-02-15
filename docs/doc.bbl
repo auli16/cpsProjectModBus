@@ -16,5 +16,48 @@
   {}
 \endgroup
 
-\datalist[entry]{nty/global//global/global}\enddatalist
+\datalist[entry]{nty/global//global/global}
+  \entry{huitsing2008attack}{article}{}
+    \name{author}{4}{}{%
+      {{hash=HP}{%
+         family={Huitsing},
+         familyi={H\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=CR}{%
+         family={Chandia},
+         familyi={C\bibinitperiod},
+         given={Rodrigo},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Papa},
+         familyi={P\bibinitperiod},
+         given={Mauricio},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SS}{%
+         family={Shenoi},
+         familyi={S\bibinitperiod},
+         given={Sujeet},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{HP+1}
+    \strng{fullhash}{HPCRPMSS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{pages}{37\bibrangedash 44}
+    \field{title}{Attack taxonomies for the Modbus protocols}
+    \field{volume}{1}
+    \field{journaltitle}{International Journal of Critical Infrastructure Protection}
+    \field{year}{2008}
+  \endentry
+\enddatalist
 \endinput
