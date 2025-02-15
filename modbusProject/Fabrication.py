@@ -15,7 +15,7 @@ def fabricate_modbus_write():
 
     # Invio del pacchetto fasullo
     server_ip = "127.0.0.1"
-    server_port = 502
+    server_port = 503
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((server_ip, server_port))
