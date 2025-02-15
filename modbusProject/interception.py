@@ -15,5 +15,4 @@ packets = []
 packets.append(sniff(iface="Software Loopback Interface 1", prn=packet_callback, filter="tcp port 1502", count=10))
 print(packets)
 print(packets[0])
-
 '''

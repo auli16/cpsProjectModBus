@@ -89,7 +89,7 @@ async def master_connected():
 
         # Esegui il monitoraggio della connessione
         asyncio.create_task(monitor_connection(client))
-        await asyncio.sleep(15)
+        await asyncio.sleep(5)
 
         # invio un messaggio di lettura coil al server 
         values = await client.read_coils(address=0, count=10, slave=1)
@@ -97,7 +97,7 @@ async def master_connected():
 
         # Lascia il client connesso per 60 secondi
         print("Client connected for 20 seconds...")
-        await asyncio.sleep(20)
+        await asyncio.sleep(5)
 
 
     except Exception as e:
