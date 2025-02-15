@@ -21,9 +21,14 @@ Among the various attacks, 4 different taxonomies can be identified to facilitat
 \end{abstract}
 
 \section{Introduction and objectives}
+The Modicon Commuication Bus (\textit{Modbus}) protocolo operates in a master-slave or server-client based model. The master devices initiates the queries while the slave devices respond to all such queries.
+Masters can either send a broadcast message to all the slaves or indivdually poll a specific device. 
+All the experiments run in this work, like in the original paper \cite{huitsing2008attack} are focused on TCP/IP implementation, while Modbus protocol can be implemented also on top of several communication networks like serial or UDP. 
+
 \section{System setup}
 \section{Experiments}
 \section{Results and Discussion}
 \printbibliography 
+
 
 \end{document}
