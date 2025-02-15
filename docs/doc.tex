@@ -21,9 +21,28 @@ Among the various attacks, 4 different taxonomies can be identified to facilitat
 \end{abstract}
 
 \section{Introduction and objectives}
-The Modicon Commuication Bus (\textit{Modbus}) protocol operates in a master-slave or client-server based model. The master devices initiates the queries while the slave devices respond to all such queries.
+\subsection{Modbus}
+The Modicon Commuication Bus (\textit{Modbus}) protocolo operates in a master-slave or server-client based model. The master devices initiates the queries while the slave devices respond to all such queries.
 Masters can either send a broadcast message to all the slaves or indivdually poll a specific device. 
 All the experiments run in this work, like in the original paper \cite{huitsing2008attack} are focused on TCP/IP implementation, while Modbus protocol can be implemented also on top of several communication networks like serial or UDP. 
+
+Modbus TCP messages are wrapped in TCP/IP header and transmitted over an ethernet-based Modbus network between different devices. The \textit{Modbus Slaves} listen for incoming TCP connections on port 503, that has been selected by us, and once a connection has been established the Protocol Data Unit (\textit{PDUs}) are exchanged and encapsulated in TCP messages. The protocol itself can be broken down into six sections: 
+\begin{itemize}
+    \item Transaction Identifier: a 2-byte field that is used to correlate request and responses; it is easily predictable due to poor randomization.
+    \item Protocol identifier: a 2-byte field that for Modbus is always set to 0.
+    \item Length: a 2-byte field that indicates the length of remaining bytes in the payload.
+    \item Unit Identifier: 1 byte that is used to identify the specific slave at an IP address.
+    \item Function Code: is a 1-byte field that indicates the action requested my master. For example, reading and writing coils, registers or holding registers.
+    \item Data: this field has variable length, with values associated with the various function codes. 
+\end{itemize}
+
+\subsection{Attack identification}
+In general attacks on Modbus systems and networks can exploit protocol's specifications, i.e. they are common to all Modbus systems/networks that are conform to the protocol specifications. The attack identification methodology used by the authors \cite{huitsing2008attack} involves an analysis of each protocol, that leads to four groups or threat categories: \textit{interception}, \textit{interruption}, \textit{modification}, \textit{fabrication}.
+The main targets for the Modbus protocol are the master, the field device, the serial communication links and messages. Attacks were implemented based on the possibility of the system to have a Modbus sniffer and a packet injector, that also could block, modify or fabricate arbitrary Modbus messages or sequences of messages. 
+
+Fifteen attacks that exploit TCP protocols have been recognized, and as said require access to the master device, network communication path or field device.
+\subsection{Objectives}
+In this work we tried to emulate the various attacks defined by the authors
 
 \section{System setup}
 \section{Experiments}
