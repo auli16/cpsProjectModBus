@@ -1,18 +1,19 @@
 from scapy.all import IP, TCP, sniff, Raw
 
 def packet_handler(packet):
-    # Verifica se il pacchetto ha il layer TCP e il layer Raw (che contiene il payload)
+    '''
+    Callback function to handle the packets captured by the sniffer.
+    params:
+        packet: The packet captured by the sniffer.
+    '''
+    # Verify if the packet has a TCP layer and a Raw layer
     if packet.haslayer(TCP) and packet.haslayer(Raw):
-        payload = packet[Raw].load  # Ottieni il payload
-        print("Payload del pacchetto:", payload)
-
-
-# Avvia lo sniffing dei pacchetti
-sniff(iface="Software Loopback Interface 1", prn=packet_handler, filter="tcp port 1502", count=10)
+        packet = bytes(packet[Raw]) # Obtain the packet as bytes
+        print("Packet:", packet, "\n")
 
 '''
-packets = []
-packets.append(sniff(iface="Software Loopback Interface 1", prn=packet_callback, filter="tcp port 1502", count=10))
-print(packets)
-print(packets[0])
+Start sniffing the packets on the loopback interface
+The loopback interface is used to capture the packets sent to localhost, the name can be found by executing int.py
+The function packet_handler will be called for each packet captured
 '''
+sniff(iface="Software Loopback Interface 1", prn=packet_handler, filter="tcp port 503", count=20) 

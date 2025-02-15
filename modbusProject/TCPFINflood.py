@@ -36,7 +36,7 @@ def FIN_Flood(dstIP,dstPort,counter):
  #sys.stdout.write("\nTotal packets sent: %i\n" % total)
  print(f"Tot packets sent: {total}")
  
-def attack_thread(dstIP, dstPort, counter, num_threads=100000):
+def attack_thread(dstIP, dstPort, counter, num_threads=10000):
     threads = []
     
     for i in range(num_threads):

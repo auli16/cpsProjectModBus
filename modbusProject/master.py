@@ -1,20 +1,26 @@
 from pymodbus.client import AsyncModbusTcpClient
 import asyncio
 
-# Funzione per leggere i dati da uno specifico slave
 async def read_slave_data(client, slave_id):
     """
-    Legge i dati da uno specifico slave Modbus.
-    
-    Args:
-        client: Il client Modbus asincrono.
-        slave_id: L'ID dello slave da cui leggere i dati.
+    function to read all the registers from a specific slave.
+
+    Params:
+        client: The Modbus client to use for reading data.
+        slave_id: ID of the slave to read data from.
     
     Returns:
-        Un dizionario con i dati letti dallo slave.
+        A dictionary containing the data read from the slave.
     """
+
     try:
-        coils = await client.read_coils(address=0, count=100, slave=slave_id)
+        '''
+        In the following function calls:
+            'address' is the starting address to read from;
+            'count' is the number of registers to read;
+            'slave' is the slave ID to read from.
+        '''
+        coils = await client.read_coils(address=0, count=100, slave=slave_id) 
         discrete_inputs = await client.read_discrete_inputs(address=0, count=100, slave=slave_id)
         holding_registers = await client.read_holding_registers(address=0, count=100, slave=slave_id)
         input_registers = await client.read_input_registers(address=0, count=100, slave=slave_id)
@@ -30,94 +36,87 @@ async def read_slave_data(client, slave_id):
 
 async def master_read():
     """
-    Crea il client Modbus e legge i dati da più slave.
+    Function which create a client, establish a connection and read data 
+    from the slave thoruh the functin 'read_slave_data'.
     """
-    # Crea il client Modbus asincrono
-    client = AsyncModbusTcpClient("localhost", port=503, trace_packet=packet_logger)
+    # Create the Modbus client and connect to the server
+    try: 
+        client = AsyncModbusTcpClient("localhost", port=503)
+        await client.connect()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return
 
-    # Connetti il client
-    await client.connect()
-
-    # Leggi i dati dallo slave 1
+    # Read data from the slave 1
     print("Reading data from Slave 1...")
     slave_1_data = await read_slave_data(client, slave_id=1)
     print("Slave 1 Data:", slave_1_data)
 
-    # Leggi i dati dallo slave 2
-    print("Reading data from Slave 2...")
-    slave_2_data = await read_slave_data(client, slave_id=2)
-    print("Slave 2 Data:", slave_2_data)
+# ----------------------------------------------------------------
 
 async def monitor_connection(client):
     """
-    Monitora il valore di 'client.connected' ogni 0.5 secondi.
+    Function to monitor the connection status of the client.
+    Args:
+        client: The Modbus client to monitor.
+    It prints true if the client is connected, false otherwise each 0.5 seconds.
     """
     while True:
         print(f"Connection Status: {client.connected}")
-        await asyncio.sleep(0.5)  # Attende 0.5 secondi prima del prossimo controllo
+        await asyncio.sleep(0.5) 
 
-def packet_logger(request: bool, data: bytes):
+async def master_connected(time_wait=5):
     """
-    Callback per registrare i pacchetti inviati/ricevuti.
-    Args:
-        request: Se True, il pacchetto è stato inviato dal client, se False, ricevuto dal client.
-        data: Dati del pacchetto (bytes).
+    Create a modbus client, wait for time_wait seconds, then try to read coils from the slave.
+    Wait other time_wait seconds and then close the connection.
     """
-    if request:
-        print(f"Sent Packet: {data.hex()}")  # Mostra i pacchetti inviati
-    else:
-        print(f"Received Packet: {data.hex()}")  # Mostra i pacchetti ricevuti
-
-async def master_connected():
-    """
-    Crea il client Modbus e lo lascia connesso per un minuto.
-    Gestisce la disconnessione tramite pacchetto TCP FIN.
-    """
-    # Crea il client Modbus asincrono con la funzione di tracing
-    client = AsyncModbusTcpClient("localhost", port=503) #, trace_packet=packet_logger)
+    # Create the Modbus client
+    client = AsyncModbusTcpClient("localhost", port=503)
 
     try:
-        # Connetti il client
+        # Connection to the server
         print("Attempting to connect...")
         connection = await client.connect()
 
-        # Verifica se la connessione è avvenuta correttamente
+        # Verify if the connection was successful
         if connection:
             print("Client connected successfully.")
         else:
             print("Connection failed!")
 
-        # Esegui il monitoraggio della connessione
+        # Montoring the connection status
         asyncio.create_task(monitor_connection(client))
-        await asyncio.sleep(5)
 
-        # invio un messaggio di lettura coil al server 
+        print(f"Client connected, wait {time_wait} seconds...")
+        await asyncio.sleep(time_wait)
+
+        # Send a request to read the coils from the slave 1
         values = await client.read_coils(address=0, count=10, slave=1)
+        # Print the values read
         print(f"Coils values: {values.bits}")
 
-        # Lascia il client connesso per 60 secondi
-        print("Client connected for 20 seconds...")
-        await asyncio.sleep(5)
-
-
+        # Leave the client connected for another time_wait seconds
+        print(f"Client disconnection in {time_wait} seconds...")
+        await asyncio.sleep(time_wait)
     except Exception as e:
         print(f"An error occurred: {e}")
     
     finally:
-        # Forza la chiusura della connessione TCP
+        # Disconnection of the client
         if client.connected:
             print("Closing client connection...")
-            client.close()  # Chiusura del client
+            client.close() 
             print("Client disconnected.")
         else:
             print("Client was already disconnected.")
 
 
-# Funzione principale
 async def main():
-    # Avvia il master_connected
-    await master_connected()
+    '''
+    We have used master_connected while trying to do the FIN flood attack, and other various interruption attack we have tr.
+    '''
+    await master_read()
+    # await master_connected(5)
 
-# Esegui il programma principale
 if __name__ == "__main__":
     asyncio.run(main())

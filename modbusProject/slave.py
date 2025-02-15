@@ -4,29 +4,24 @@ import logging
 from pymodbus.datastore import ModbusSequentialDataBlock, ModbusSlaveContext, ModbusServerContext
 from pymodbus.server import ModbusTcpServer
 
-# Funzione di callback per tracciare le connessioni
-def trace_connection(is_connected, client_address):
-    if is_connected:
-        print(f"Dispositivo connesso: {client_address}")
-    else:
-        print(f"Dispositivo disconnesso: {client_address}")
-
 def create_slave_context(slave_id):
     """
-    Funzione per creare un contesto per uno slave.
-    Ogni slave avrà un ID e i registri saranno inizializzati con valori random.
+    Function to create a Modbus slave context with random values.
+    params:
+        slave_id: The slave ID for the context.
     """
-    coils = ModbusSequentialDataBlock(1, [True] * 100)  # digital outputs, 0 or 1
+    coils = ModbusSequentialDataBlock(1, [True] * 100)  # digital outputs, 0 or 1, this data can be written
     discrete_inputs = ModbusSequentialDataBlock(1, [False] * 100)  # read only, digital inputs
-    holding_registers = ModbusSequentialDataBlock(1, [0] * 100)  # holding registers
+    holding_registers = ModbusSequentialDataBlock(1, [0] * 100)  # holding registers, this data can be written
     input_registers = ModbusSequentialDataBlock(1, [0] * 100)  # input registers
 
-    # Creazione di valori random per ogni slave
+    # Here we insert some random values to the registers
     some_values = [random.randint(4, 15) for _ in range(7)]
     holding_registers.setValues(1, some_values)
+    # print the updated values
     print(f"Slave {slave_id} - some_values:", holding_registers.getValues(1, 7), "coils", coils.getValues(1, 7))
 
-    # Creazione del contesto per lo slave con ID specificato
+    # Creation of the slave context, which will be returned by the function to be used in the server context
     slave_context = ModbusSlaveContext(
         di=discrete_inputs,
         co=coils,
@@ -36,22 +31,24 @@ def create_slave_context(slave_id):
 
     return slave_context
 
-# Configurazione del logging per tracciare tutte le richieste Modbus
-logging.basicConfig(level=logging.DEBUG)  # Imposta il livello di log a DEBUG
+# Logging configuration to trace the server activity
+logging.basicConfig(level=logging.DEBUG) 
 log = logging.getLogger()
 
+
 async def run():
-    # Creazione del contesto per uno slave
+    '''
+    Main function to run the Modbus server.
+    '''
+    # Creation of the slave context for slave 1, with ModbusTcpServer it's possible to add multiple slaves (have more than one server)
     slave_context_1 = create_slave_context(1)
     server_context = ModbusServerContext(slaves={1: slave_context_1}, single=False)
 
-    # Avvia il server con il callback trace_connection per le connessioni/disconnessioni
-    server = ModbusTcpServer(context=server_context, address=("localhost", 503), trace_connect=trace_connection)
+    # Creation of the Modbus TCP server and start it throuh server_forever
+    server = ModbusTcpServer(context=server_context, address=("localhost", 503))
 
-    print("Server Modbus avviato...")
-
-    # Esegui il server Modbus
-    await server.serve_forever()  # Avvia il server Modbus TCP e mantienilo in esecuzione
+    print("Server started...")
+    await server.serve_forever() 
 
 if __name__ == "__main__":
-    asyncio.run(run())  # Usa asyncio per eseguire la coroutine
+    asyncio.run(run())
