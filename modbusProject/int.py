@@ -1,8 +1,6 @@
 import psutil
 
-# Ottieni tutte le interfacce di rete
+# Obtain the interfaces of the machine and print them
 interfaces = psutil.net_if_addrs()
-
-# Stampa i nomi leggibili delle interfacce
 for iface in interfaces:
     print(iface)

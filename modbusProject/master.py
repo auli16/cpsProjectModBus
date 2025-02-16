@@ -110,12 +110,45 @@ async def master_connected(time_wait=5):
         else:
             print("Client was already disconnected.")
 
+# ----------------------------------------------------------------
+
+async def master_write():
+    """
+    Function to write data to the slave.
+    """
+    # Create the Modbus client and connect to the server
+    client = AsyncModbusTcpClient("localhost", port=503)
+    await client.connect()
+
+    # Write data to the slave 1
+    print("Writing data to Slave 1...")
+    try:
+        # Write a value to a coil
+        await client.write_registers(address=0, values=[0x00, 0x00, 0x00, 0x00], slave=1)
+        print("Data written successfully.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    
+    # Close the connection
+    finally:
+        # Disconnection of the client
+        if client.connected:
+            print("Closing client connection...")
+            client.close() 
+            print("Client disconnected.")
+        else:
+            print("Client was already disconnected.")
+
+
 
 async def main():
     '''
-    We have used master_connected while trying to do the FIN flood attack, and other various interruption attack we have tr.
+    We have used master_connected while trying to do the FIN flood attack, 
+    and other various interruption attack we have tried.
+    master_write is used for the modification attack.
     '''
     await master_read()
+    # await master_write()
     # await master_connected(5)
 
 if __name__ == "__main__":
