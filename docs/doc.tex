@@ -63,9 +63,12 @@ Although these are two of the most famous python labraries for dealing with TCP 
 
 Wireshark was employed for sniffing the entire connection on the \texttt{Loopback interface} and on \texttt{port 503}, in order to obtain a feedback on what actually happened on our Modbus TCP network.
 
-\section{Experiments}
+\section{Experiments and discussions}
 In this section we describe the experiments done to emulate the attacks. We assume that the attacker knows IP address and the port where the devieces are listening. 
-First of all, in all the experiments we have a master and a slave. The slave is a simple Modbus server that listens on port 503 and the master is a Modbus client that sends requests to the slave. So run the \texttt{slave.py} script on a terminal to start the server listening. In the file 
+First of all, in all the experiments we have a master and a slave except for the Fabrication where we need only the server.
+The slave is a simple Modbus server that listens on port 503 and the master is a Modbus 
+client that sends requests to the slave. So run the \texttt{slave.py} script on a terminal to start 
+the server listening. In the file 
 \texttt{master.py} there are three different function used to read, write coils and registers:
 \begin{itemize}
     \item master\_read(): reads the data from all the registers of the slave;
@@ -94,7 +97,61 @@ Here there is a conversion of the first packet present in the image:
     \item Data = x00x00x00;
 \end{enumerate}
 We found the function codes and their assignd functions in the following site \href{https://ozeki.hu/p_5873-modbus-function-codes.html}{codes}
-\section{Results and Discussion}
+\subsection{Fabrication attack}
+The goal of this attack is to fabricate a fake message and send it to the server in order to change the value 
+of a register, more precisely we substituted the value of the register 1 with 1337 of the holfing registers.
+For this attack, after starting the slave, run the \texttt{fabrication.py} script that will send the packet to the server.
+In the following image \ref{fig:beforeFabrication} we can see the register of interest before the attack:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{images/BeforeFabrication.png}
+    \caption{Register before the fabrication attack}
+    \label{fig:beforeFabrication}
+\end{figure}
+A packet with the following characteristics is sent to the server:
+\begin{enumerate}
+    \item Transaction ID = x12x34 (chosen randomly);
+    \item Protocol ID = x00x00 = 0;
+    \item Length = x00x06 = 6;
+    \item Unit ID = x01 = 1;
+    \item Function Code = x06 = 6 (write single register);
+    \item Register Address = x00x01;
+    \item Value = x05x39 = 1337;
+\end{enumerate}
+And this is the result \ref{fig:afterFabrication}:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{images/AfterFabrication.png}
+    \caption{Register after the fabrication attack}
+    \label{fig:afterFabrication}
+\end{figure}
+\subsection{Modification attack}
+The aim of this attack is to intercept the packet sent by the master to write in multiple registers 
+and modify the value of one of them, and also delaying the response.
+When a packet with the function code 16 is sent, the attacker will intercept it and modify 
+the value of the register and send it to the server.
+For this attack, after starting the slave, run the master with the function \texttt{master\_write()} and \texttt{master\_read()} 
+to see the registers as in figure. Then run the \texttt{modification.py} script and with the master 
+read the registers again to see the modification.
+In the following image \ref{fig:beforeModification} we can see the register of 
+interest before the attack:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{images/BeforeModification.png}
+    \caption{Register before the modification attack}
+    \label{fig:beforeModification}
+\end{figure} \\
+After the modification, the value of the register is changed as shown in the 
+following image \ref{fig:afterModification}:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{images/AfterModification.png}
+    \caption{Register after the modification attack}
+    \label{fig:afterModification}
+\end{figure} \\
+In this case the original packet sent by the master is not blocked, but the aim is achieved anyway 
+because the value of the register is changed starting from the packet sent by the master.
+\section{Conclusions}
 \printbibliography 
 
 
