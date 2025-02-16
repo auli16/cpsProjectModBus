@@ -149,6 +149,7 @@ INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt12.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
 INPUT C:\Users\User\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr17.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
@@ -170,7 +171,6 @@ INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmti12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1200.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt12.tfm
@@ -209,6 +209,20 @@ INPUT .\images\AfterModification.png
 INPUT .\images\AfterModification.png
 INPUT .\images\AfterModification.png
 INPUT .\images\AfterModification.png
+INPUT .\images\wiresharkModification.jpg
+INPUT .\images\wiresharkModification.jpg
+INPUT .\images\wiresharkModification.jpg
+INPUT .\images\wiresharkModification.jpg
+INPUT .\images\wiresharkModification.jpg
+INPUT .\images\wiresharkModification.jpg
+INPUT .\images\wiresharkModification.jpg
+INPUT .\images\wiresharkFINflood.png
+INPUT .\images\wiresharkFINflood.png
+INPUT .\images\wiresharkFINflood.png
+INPUT .\images\wiresharkFINflood.png
+INPUT .\images\wiresharkFINflood.png
+INPUT .\images\wiresharkFINflood.png
+INPUT .\images\wiresharkFINflood.png
 INPUT doc.aux
 INPUT doc.run.xml
 OUTPUT doc.run.xml
