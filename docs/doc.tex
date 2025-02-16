@@ -48,15 +48,17 @@ The most serious attacks are those that disable or bypass the master unit and se
 In this work we tried to emulate the various attacks defined by the authors, precisely we emulate one attack for each taxonomy identified in the paper. We built our own Modbus simulator with python libraries and then we produced python scripts for each attack.
 More precisely, \textit{interception}, \textit{interruption}, \textit{modification} and \textit{fabrication} identified in the original paper are described and implemented as:
 \begin{itemize}
-    \item \textit{Passive reconnaissance} involves passively reading Modbus messages or network traffic, intercepting the messages and reading field device data.
-    \item \textit{TCP FIN flood} is an interruption attack that aims to launch spoofed TCP packets with the FIN flag set after a legitimate message from Modbus server to Modbus client, in order to close the TCP connection or cause important delays.
-    \item \textit{Rogue Interloper} is a sort of man-in-the-middle attack where a MITM device can sniff and fabricate messages.
-    \item \textit{Response Delay} involves delaying a response message so that the master receives out-of-date information from slaves, and is done sniffing and modifying field device, sending the modified packet with a delay.
+    \item Interception: \textit{Passive reconnaissance} involves passively reading Modbus messages or network traffic, intercepting the messages and reading field device data.
+    \item Interruption: \textit{TCP FIN flood} is an interruption attack that aims to launch spoofed TCP packets with the FIN flag set after a legitimate message from Modbus server to Modbus client, in order to close the TCP connection or cause important delays.
+    \item Modification: \textit{Response Delay} involves delaying a response message so that the master receives out-of-date information from slaves, and is done sniffing and modifying field device, sending the modified packet with a delay.
+    \item Fabrication: \textit{Rogue Interloper} is a sort of man-in-the-middle attack where a MITM device can sniff and fabricate messages.
 \end{itemize}
 
 \section{System setup}
 This work was entirely done with python scripts, crafting master and slaves with \href{https://pymodbus.readthedocs.io/en/latest/}{\texttt{PyModbus}} and working on TCP level with \href{https://scapy.readthedocs.io/en/latest/}{\texttt{Scapy}}.
 Although these are two of the most famous python labraries for dealing with TCP Modbus packets, we found out that their documentation is often incomplete and not accurate, with most of the informations difficult to retrieve. 
+
+Wireshark was employed for sniffing the entire connection on the \texttt{Loopback interface} and on \texttt{port 503}, in order to obtain a feedback on what actually happened on our Modbus TCP network.
 
 \section{Experiments}
 \section{Results and Discussion}
