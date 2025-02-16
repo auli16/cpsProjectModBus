@@ -41,8 +41,17 @@ In general attacks on Modbus systems and networks can exploit protocol's specifi
 The main targets for the Modbus protocol are the master, the field device, the serial communication links and messages. Attacks were implemented based on the possibility of the system to have a Modbus sniffer and a packet injector, that also could block, modify or fabricate arbitrary Modbus messages or sequences of messages. 
 
 Fifteen attacks that exploit TCP protocols have been recognized, and as said require access to the master device, network communication path or field device.
+The most serious attacks are those that disable or bypass the master unit and seize control of field devices, this type of attacks affect the integrity and the availability of the messages or of the network; on the other hand attacks on confidentiality involve obtaining information on the network or on slave devices by simply reading messages.
+
 \subsection{Objectives}
-In this work we tried to emulate the various attacks defined by the authors
+In this work we tried to emulate the various attacks defined by the authors, precisely we emulate one attack for each taxonomy identified in the paper. We built our own Modbus simulator with python libraries and then we produced python scripts for each attack.
+More precisely, \textit{interception}, \textit{interruption}, \textit{modification} and \textit{fabrication} identified in the original paper are identified as:
+\begin{itemize}
+    \item \textit{Passive reconnaissance} involves passively reading Modbus messages or network traffic, intercepting the messages and reading field device data.
+    \item \textit{TCP FIN flood} is an interruption attack that aims to launch spoofed TCP packets with the FIN flag set after a legitimate message from Modbus server to Modbus client, in order to close the TCP connection or cause important delays.
+    \item \textit{Rogue Interloper} is a sort of man-in-the-middle attack where a MITM device can sniff and fabricate messages.
+    \item \textit{Message Spoofing} involves sending fake messages to slave devices, but no response messages are returned from the slaves to the the master; messages are sniffed and then modified.
+\end{itemize}
 
 \section{System setup}
 \section{Experiments}
