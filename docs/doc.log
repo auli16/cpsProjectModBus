@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.1)  16 FEB 2025 16:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.1)  16 FEB 2025 16:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -393,29 +393,30 @@ File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 \Gin@req@height=\dimen145
 \Gin@req@width=\dimen146
 )
+Package hyperref Info: Option `colorlinks' set `true' on input line 11.
 \@quotelevel=\count400
 \@quotereset=\count401
  (doc.aux)
 \openout1 = `doc.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
  (C:\Program Files\MiKTeX\tex/latex/biblatex/lbx\english.lbx
@@ -432,9 +433,16 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'doc.bbl' found.
  (doc.bbl)
-Package biblatex Info: Reference section=0 on input line 15.
-Package biblatex Info: Reference segment=0 on input line 15.
-Package hyperref Info: Link coloring OFF on input line 15.
+Package biblatex Info: Reference section=0 on input line 21.
+Package biblatex Info: Reference segment=0 on input line 21.
+ (C:\Program Files\MiKTeX\tex/latex/graphics\color.sty
+Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
+ (C:\Program Files\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 149.
+ (C:\Program Files\MiKTeX\tex/latex/graphics\mathcolor.ltx))
+Package hyperref Info: Link coloring ON on input line 21.
  (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count402
@@ -455,9 +463,9 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 18.
+(Font)              <14.4> on input line 24.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 18.
+(Font)              <7> on input line 24.
  [1
 
 {C:/Users/User/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (doc.toc
@@ -473,14 +481,14 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
  [2]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 24.
+(Font)              <10.95> on input line 30.
  [3] [4]
-Overfull \hbox (2.29646pt too wide) in paragraph at lines 78--79
+Overfull \hbox (2.29646pt too wide) in paragraph at lines 84--85
 []\OT1/cmr/m/n/12 Wireshark was em-ployed for sniff-ing the en-tire con-nec-tion on the \OT1/cmtt/m/n/12 Loopback
  []
 
 
-Overfull \hbox (5.99698pt too wide) in paragraph at lines 91--93
+Overfull \hbox (5.99698pt too wide) in paragraph at lines 97--99
 []\OT1/cmr/m/n/12 master[]connected(time[]wait): the mas-ter will be con-nected for time[]wait
  []
 
@@ -488,18 +496,18 @@ Overfull \hbox (5.99698pt too wide) in paragraph at lines 91--93
 <images/InterceptionResults.png, id=63, 969.6225pt x 441.90094pt>
 File: images/InterceptionResults.png Graphic file (type png)
 <use images/InterceptionResults.png>
-Package pdftex.def Info: images/InterceptionResults.png  used on input line 103.
+Package pdftex.def Info: images/InterceptionResults.png  used on input line 109.
 (pdftex.def)             Requested size: 390.0pt x 177.7417pt.
  [6 <./images/InterceptionResults.png>]
 <images/BeforeFabrication.png, id=77, 892.08281pt x 66.2475pt>
 File: images/BeforeFabrication.png Graphic file (type png)
 <use images/BeforeFabrication.png>
-Package pdftex.def Info: images/BeforeFabrication.png  used on input line 125.
+Package pdftex.def Info: images/BeforeFabrication.png  used on input line 131.
 (pdftex.def)             Requested size: 390.0pt x 28.96198pt.
 <images/AfterFabrication.png, id=79, 847.66687pt x 49.68562pt>
 File: images/AfterFabrication.png Graphic file (type png)
 <use images/AfterFabrication.png>
-Package pdftex.def Info: images/AfterFabrication.png  used on input line 142.
+Package pdftex.def Info: images/AfterFabrication.png  used on input line 148.
 (pdftex.def)             Requested size: 390.0pt x 22.85945pt.
 
 
@@ -508,17 +516,17 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <images/BeforeModification.png, id=81, 724.20563pt x 69.25874pt>
 File: images/BeforeModification.png Graphic file (type png)
 <use images/BeforeModification.png>
-Package pdftex.def Info: images/BeforeModification.png  used on input line 158.
+Package pdftex.def Info: images/BeforeModification.png  used on input line 164.
 (pdftex.def)             Requested size: 390.0pt x 37.2977pt.
 <images/AfterModification.png, id=83, 721.94719pt x 64.74188pt>
 File: images/AfterModification.png Graphic file (type png)
 <use images/AfterModification.png>
-Package pdftex.def Info: images/AfterModification.png  used on input line 166.
+Package pdftex.def Info: images/AfterModification.png  used on input line 172.
 (pdftex.def)             Requested size: 390.0pt x 34.9739pt.
 <images/wiresharkModification.jpg, id=84, 963.6pt x 381.67593pt>
 File: images/wiresharkModification.jpg Graphic file (type jpg)
 <use images/wiresharkModification.jpg>
-Package pdftex.def Info: images/wiresharkModification.jpg  used on input line 174.
+Package pdftex.def Info: images/wiresharkModification.jpg  used on input line 180.
 (pdftex.def)             Requested size: 390.0pt x 154.47307pt.
 [7 <./images/BeforeFabrication.png>]
 
@@ -527,7 +535,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <images/wiresharkFINflood.png, id=104, 776.9025pt x 286.82156pt>
 File: images/wiresharkFINflood.png Graphic file (type png)
 <use images/wiresharkFINflood.png>
-Package pdftex.def Info: images/wiresharkFINflood.png  used on input line 194.
+Package pdftex.def Info: images/wiresharkFINflood.png  used on input line 200.
 (pdftex.def)             Requested size: 390.0pt x 143.98375pt.
 [8 <./images/AfterFabrication.png> <./images/BeforeModification.png> <./images/AfterModification.png>] [9 <./images/wiresharkModification.jpg> <./images/wiresharkFINflood.png>] [10] (doc.aux)
  ***********
@@ -539,15 +547,15 @@ Package logreq Info: Writing requests to 'doc.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 15688 strings out of 474494
- 277745 string characters out of 5753733
+ 15766 strings out of 474494
+ 279290 string characters out of 5753733
  1934460 words of memory out of 5000000
- 37788 multiletter control sequences out of 15000+600000
+ 37859 multiletter control sequences out of 15000+600000
  565829 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 66i,7n,81p,1966b,1356s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 66i,7n,81p,1966b,1361s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\User\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on doc.pdf (10 pages, 321856 bytes).
+Output written on doc.pdf (10 pages, 322221 bytes).
 PDF statistics:
  178 PDF objects out of 1000 (max. 8388607)
  45 named destinations out of 1000 (max. 500000)
