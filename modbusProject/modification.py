@@ -6,7 +6,7 @@ import time
 def intercept_modify(packet, server_ip="localhost", server_port=503):
     """
     Function to modify an intercepted Modbus TCP packet and send it 
-    in a way to change the behavior of the original packet.
+    in a way to change the behavior of the original packet, and add a delay.
     In this function we tried to intercept a write multiple registers packet and modify it to change the values.
     
     The objective of this modification is to change the first 4 registers in [0, 4369, 0, 0, ...]    
