@@ -45,7 +45,7 @@ The most serious attacks are those that disable or bypass the master unit and se
 
 \subsection{Objectives}
 In this work we tried to emulate the various attacks defined by the authors, precisely we emulate one attack for each taxonomy identified in the paper. We built our own Modbus simulator with python libraries and then we produced python scripts for each attack.
-More precisely, \textit{interception}, \textit{interruption}, \textit{modification} and \textit{fabrication} identified in the original paper are identified as:
+More precisely, \textit{interception}, \textit{interruption}, \textit{modification} and \textit{fabrication} identified in the original paper are described and implemented as:
 \begin{itemize}
     \item \textit{Passive reconnaissance} involves passively reading Modbus messages or network traffic, intercepting the messages and reading field device data.
     \item \textit{TCP FIN flood} is an interruption attack that aims to launch spoofed TCP packets with the FIN flag set after a legitimate message from Modbus server to Modbus client, in order to close the TCP connection or cause important delays.
@@ -54,6 +54,8 @@ More precisely, \textit{interception}, \textit{interruption}, \textit{modificati
 \end{itemize}
 
 \section{System setup}
+
+
 \section{Experiments}
 \section{Results and Discussion}
 \printbibliography 
