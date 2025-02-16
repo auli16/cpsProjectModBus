@@ -1,6 +1,9 @@
 \documentclass[12pt]{article}
 \usepackage[backend=bibtex,style=numeric]{biblatex} 
 \usepackage[breaklinks=true, bookmarks=false]{hyperref}
+
+\usepackage{graphicx}
+
 \addbibresource{references.bib} 
 
 \title{Report for the CPS Final Project}
@@ -61,6 +64,36 @@ Although these are two of the most famous python labraries for dealing with TCP 
 Wireshark was employed for sniffing the entire connection on the \texttt{Loopback interface} and on \texttt{port 503}, in order to obtain a feedback on what actually happened on our Modbus TCP network.
 
 \section{Experiments}
+In this section we describe the experiments done to emulate the attacks. We assume that the attacker knows IP address and the port where the devieces are listening. 
+First of all, in all the experiments we have a master and a slave. The slave is a simple Modbus server that listens on port 503 and the master is a Modbus client that sends requests to the slave. So run the \texttt{slave.py} script on a terminal to start the server listening. In the file 
+\texttt{master.py} there are three different function used to read, write coils and registers:
+\begin{itemize}
+    \item master\_read(): reads the data from all the registers of the slave;
+    \item master\_connected(time\_wait): the master will be connected for 
+    time\_wait seconds to the slave, it will read coils and will be disconnected time\_wait seconds;
+    \item master\_write(): writes values in the holding registers of the slave.
+\end{itemize}
+One of these functions is called based on the attack type (change it in the main function of the file).
+The master have to be run in a different terminal.
+\subsection{Interception attack}
+The goal of this attack is to intercept a sent message from the master to the slave. In the master, the function \texttt{master\_read()} is called. Before calling the master, run the \texttt{interception.py} script that will sniff the packet and print it. The attacker will listen to the network and when it found the packet with the right characteristics, it will print it.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{images/InterceptionResults.png}
+    \caption{Results of the interception attack}
+    \label{fig:interceptionResult}
+\end{figure}
+In the image \ref{fig:interceptionResult} we can see that there are 4 operations requested by the master and 4 responses from the slave.
+Here there is a conversion of the first packet present in the image:
+\begin{enumerate}
+    \item Transaction ID = x00x01 = 1;
+    \item Protocol ID = x00x00 = 0;
+    \item Length = x00x06 = 6;
+    \item Unit ID = x01 = 1;
+    \item Function Code = x01 = 1 (read coils);
+    \item Data = x00x00x00;
+\end{enumerate}
+We found the function codes and their assignd functions in the following site \href{https://ozeki.hu/p_5873-modbus-function-codes.html}{codes}
 \section{Results and Discussion}
 \printbibliography 
 
